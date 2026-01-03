@@ -1,4 +1,4 @@
-package practica.soket.numsSuma2.copy;
+package practica.soket.numsSuma2;
 
 import java.io.IOException;
 import java.io.InputStream;
