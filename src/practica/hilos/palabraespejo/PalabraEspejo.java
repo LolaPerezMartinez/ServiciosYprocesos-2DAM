@@ -1,0 +1,36 @@
+package practica.hilos.palabraespejo;
+
+
+public class PalabraEspejo implements Runnable{
+	private String palabra;
+	private static long milis = 300;
+
+	public PalabraEspejo(String palabra) {
+		this.palabra = palabra;
+	}
+
+	@Override
+	public void run() {
+		char [] arrayPalabra = palabra.toCharArray();
+		
+		System.out.printf("%nPalabra: %s%n", palabra.toUpperCase());
+		
+		for (int i = 0; i < arrayPalabra.length; i++) {
+			for (int j = 0; j < arrayPalabra.length; j++) {
+				try {
+					if(i >= (arrayPalabra.length - 1) - j) {
+						System.out.printf("%c", arrayPalabra[j]);
+					}else {
+						System.out.printf("-");
+					}
+					Thread.sleep(milis);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			System.out.println();
+		}
+		
+	}
+
+}
