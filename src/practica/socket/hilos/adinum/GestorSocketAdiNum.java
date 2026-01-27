@@ -1,0 +1,57 @@
+package practica.socket.hilos.adinum;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.concurrent.atomic.AtomicLong;
+
+public class GestorSocketAdiNum implements Runnable{
+	private Socket socket;
+	private AdivinarNumero juego;
+	
+	private static AtomicLong peticionesAlServidor = new AtomicLong(0);
+	
+	
+	public GestorSocketAdiNum(Socket socket) {
+		this.socket = socket;
+		juego = new AdivinarNumero();
+		
+	}
+
+
+	@Override
+	public void run() {
+		
+		try (InputStream is = socket.getInputStream();
+			 OutputStream os = socket.getOutputStream();
+			 PrintWriter pw = new PrintWriter(os, true);
+			 BufferedReader br = new BufferedReader(new InputStreamReader(is));){
+			
+			while(true) {
+				String datoLeido = br.readLine();
+				if(datoLeido != null) {
+					peticionesAlServidor.getAndIncrement();
+					String respuesta =  juego.verificarIntento(datoLeido);
+					pw.println(respuesta);
+					
+					if("Acertaste".equals(respuesta)) {
+						System.out.printf("%n[Gestor Server] Sockets aceptados: %d | Peticiones al servidor: %d%n", 
+										  ServerSocketAdiNum.getSocketsAceptados(), peticionesAlServidor.get());
+						break;
+					}
+				}
+			}
+			
+		} catch (IOException e) {
+			System.out.printf("%n[Gestor Server] Error en la comunicación con el cliente: %d%n", e.getMessage());
+		}
+	}
+	
+	
+	
+
+}
