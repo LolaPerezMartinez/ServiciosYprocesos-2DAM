@@ -38,7 +38,7 @@ public class JuegoLista {
 			return "Error: los parámetros deben ser números enteros válidos";
 		}
 		
-		if(mensajeEnviadoPorCliente.equals("Listado números")) {
+		if(mensajeEnviadoPorCliente.equals("Listado numeros")) {
 			StringBuilder sb = new StringBuilder();
 			for (int i = primerNumero; i <= segundoNumero; i++) {
 				sb.append(i);
@@ -48,7 +48,7 @@ public class JuegoLista {
 			}
 			return sb.toString();
 			
-		}else if(mensajeEnviadoPorCliente.equals("Número aleatorio")){
+		}else if(mensajeEnviadoPorCliente.equals("Numero aleatorio")){
 			int numeroAleatorio = random.nextInt(primerNumero, segundoNumero + 1);
 			return Integer.toString(numeroAleatorio);
 		}

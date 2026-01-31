@@ -35,7 +35,7 @@ public class ServidorSocketLista {
 				socket = servidor.server.accept();
 				socketsAceptados++;
 				System.out.printf("%n[Servidor] Sockets aceptados: %d%n", socketsAceptados);
-				//hilo
+				new Thread(new GestorServerSocketLista(socket)).start();
 			} catch (IOException e) {
 				System.out.printf("%n[Servidor] Problemas al conectar con el cliente | Error: %s%n", e.getMessage());
 				break;
