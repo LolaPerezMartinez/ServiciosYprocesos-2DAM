@@ -23,7 +23,8 @@ public class ClienteSocket {
 			
 			for (int i = 1; i <= 10; i++) {
 				System.out.println("\n=== Intento " + i + " ===");
-				System.out.print("Introduce el mensaje a enviar: ");
+				System.out.printf("Adivina la palabra entre \"clavel\", \"montaña\", \"reloj\", \"nube\", \"ventana\", \"faro\", \"cuaderno\", \"bosque\", \"taza\", \"estrella\"%n");
+				System.out.print("Introduce la palabra a enviar: ");
 				
 				String mensaje = reader.readLine();
 				
@@ -33,9 +34,7 @@ public class ClienteSocket {
 				String respuesta = br.readLine();
 				System.out.printf("Mensaje recibido: %s%n", respuesta);
 				
-				// Si el servidor responde con algo que indica fin del juego, salir
-				if (respuesta != null && respuesta.contains("FIN")) {
-					System.out.println("Juego terminado.");
+				if("Juego terminado".equals(respuesta)) {
 					break;
 				}
 				
@@ -50,7 +49,7 @@ public class ClienteSocket {
 	}
 	
 	public static void main(String[] args) {
-		ClienteSocket cliente = new ClienteSocket("localhost", 4004);
+		ClienteSocket cliente = new ClienteSocket("localhost", 7001);
 		cliente.jugar();
 	}
 }

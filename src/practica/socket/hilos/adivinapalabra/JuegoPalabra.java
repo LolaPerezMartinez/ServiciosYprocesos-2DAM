@@ -18,6 +18,9 @@ public class JuegoPalabra {
 	}
 
 	public String verificarIntento(String intento) {
+		if(intento.contains("fin")) {
+			return "Juego terminado";
+		}
 		if (intento.isBlank()) {
 			return "Error: la palabra no puede estar vacía.";
 		}
