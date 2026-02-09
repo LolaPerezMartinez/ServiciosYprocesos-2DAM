@@ -3,11 +3,12 @@ package concurrencia.contador;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ContadorPorCajero {
+public class ContadorPorCajeros {
 	private ConcurrentHashMap<String, AtomicInteger> ventas = new ConcurrentHashMap<>();
 	
-	public void venderEntrada(String cajero) {
-		ventas.computeIfAbsent(cajero, k -> new AtomicInteger()).incrementAndGet();
+	
+	public void venderEntradas(String cajero) {
+		ventas.computeIfAbsent(cajero, k -> new AtomicInteger(0)).incrementAndGet();
 	}
 	
 	public void mostrarEstadisticas() {
@@ -23,14 +24,14 @@ public class ContadorPorCajero {
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		ContadorPorCajero contador =  new ContadorPorCajero();
+		ContadorPorCajeros contador = new ContadorPorCajeros();
 		Thread [] cajeros = new Thread[5];
 		
 		for (int i = 0; i < 5; i++) {
 			final String nombreCajero = "Cajero-" + (i + 1);
-			cajeros[i] = new Thread(() -> {
+			cajeros[i] = new Thread(() ->{
 				for (int j = 0; j < 10; j++) {
-					contador.venderEntrada(nombreCajero);
+					contador.venderEntradas(nombreCajero);
 				}
 			});
 			cajeros[i].start();
@@ -42,5 +43,10 @@ public class ContadorPorCajero {
 		
 		contador.mostrarEstadisticas();
 	}
-
+	
+	
+	
+	
+	
+	
 }
